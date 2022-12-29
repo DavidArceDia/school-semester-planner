@@ -1,0 +1,44 @@
+body {
+  display: flex;
+  margin: 0;
+  display: flex;
+}
+
+#nav {
+  flex-grow: 1;
+  min-height: 100vh;
+  background-color: #e5e9ec;
+  display: flex;
+  flex-direction: column;
+}
+
+#homeButton {
+  border: none;
+  background-color: transparent;
+  margin: 2rem;
+}
+
+#homeButton > img {
+  height: 4rem;
+}
+
+#addCourseButton {
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: bold;
+  border: none;
+  background-color: transparent;
+  color: #e6a715;
+  margin: 2rem 1rem;
+}
+
+#addCourseButton:hover,
+#homeButton {
+  cursor: pointer;
+}
+
+#content {
+  flex-grow: 3;
+  min-height: 100vh;
+  color: blue;
+}
