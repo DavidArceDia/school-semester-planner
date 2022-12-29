@@ -2,10 +2,13 @@ body {
   display: flex;
   margin: 0;
   display: flex;
+
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #nav {
   flex-grow: 1;
+  max-width: 35%;
   min-height: 100vh;
   background-color: #e5e9ec;
   display: flex;
@@ -22,7 +25,14 @@ body {
   height: 4rem;
 }
 
-#addCourseButton {
+#addCoursePrompt {
+  transform: scale(0);
+  pointer-events: none;
+}
+
+#addCoursePrompt.active {
+  transform: scale(1);
+  pointer-events: all;
   font-size: 2rem;
   font-style: italic;
   font-weight: bold;
@@ -35,6 +45,99 @@ body {
 #addCourseButton:hover,
 #homeButton {
   cursor: pointer;
+}
+
+/* ADD COURSE FORM */
+
+#addCourseForm {
+  transform: scale(0);
+  pointer-events: none;
+}
+
+#addCourseForm.active {
+  transform: scale(1);
+  pointer-events: all;
+}
+
+#addCourseFormWrapper {
+  list-style-type: none;
+  padding: 0;
+  margin: 2rem;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+input,
+select {
+  all: unset;
+  border-radius: 0.25rem;
+  background-color: white;
+  padding: 0.25rem;
+  padding-left: 0.35rem;
+  display: flex;
+  align-items: center;
+  min-width: 5rem;
+}
+
+.formRow > input,
+.formRow > select {
+  flex: 4;
+  height: 1.5rem;
+}
+
+.formRow > label {
+  min-width: 3.5rem;
+  margin-right: 1rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+  flex: 1;
+  color: #e6a715;
+}
+
+#addCourseSubmitFormRow {
+  flex-wrap: wrap-reverse;
+  gap: 0.5rem;
+}
+
+#addCourseButton2 {
+  font-size: 1.2rem;
+  width: 9rem;
+
+  height: 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  background-color: #d4d4d4;
+  transition: 0.25s;
+}
+
+#cancelAddCourseButton {
+  font-size: 1.2rem;
+  width: 9rem;
+
+  height: 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  background-color: #d4d4d4;
+  transition: 0.25s;
+}
+
+#addCourseButton2:hover,
+#cancelAddCourseButton:hover {
+  background-color: #f2f2f2;
 }
 
 #content {

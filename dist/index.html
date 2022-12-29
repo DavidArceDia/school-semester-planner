@@ -13,7 +13,30 @@
     <section id="nav">
       <button id="homeButton"></button>
       <ul id="courseList"></ul>
-      <button id="addCourseButton">+ Add Course</button>
+      <form action="" class="" id="addCourseForm">
+        <ul id="addCourseFormWrapper">
+          <li class="formRow" id="formRowCourseName">
+            <label for="courseName">Name:</label>
+            <input type="text" name="courseName" id="courseName" required />
+          </li>
+          <li class="formRow" id="formRowCourseCredit">
+            <label for="courseCredit">Credit:</label>
+            <input
+              type="number"
+              step="0.05"
+              min="0"
+              name="courseCredit"
+              id="courseCredit"
+              required
+            />
+          </li>
+          <li class="formRow" id="addCourseSubmitFormRow">
+            <button type="button" id="cancelAddCourseButton">Cancel</button>
+            <button id="addCourseButton2">Add Course</button>
+          </li>
+        </ul>
+      </form>
+      <button class="active" id="addCoursePrompt">+ Add Course</button>
     </section>
 
     <section id="content"></section>

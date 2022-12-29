@@ -15,13 +15,22 @@ const Course = (courseName, weight) => {
   const getWeight = () => {
     return weight;
   };
+  return { getName, getWeight };
 };
 
-const Controller = () => {
-  console.log("fart");
-};
+// const Controller = () => {
+//   console.log("fart");
+// };
 
-const courseDOM = () => {
-  const addCourseButton = document.getElementById("addCourseButton");
-  return { addCourseButton };
-};
+// const courseDOM = () => {
+//   const addCourseButton = document.getElementById("addCourseButton");
+//   return { addCourseButton };
+// };
+
+// const sayHello = () => {
+//   console.log("hello");
+// };
+
+const course = Course("Name", 0.5);
+
+export { Course };
