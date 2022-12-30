@@ -6,6 +6,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* NAV */
+
 #nav {
   flex-grow: 1;
   max-width: 35%;
@@ -25,6 +27,35 @@ body {
   height: 4rem;
 }
 
+/* COURSE LIST*/
+
+#courseList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.course {
+  font-size: 1rem;
+  width: 90%;
+  padding: 0.75rem;
+
+  border: none;
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  background-color: #d4d4d4;
+  transition: 0.25s;
+  background-color: #e6a715;
+  color: white;
+}
+
+/* ADD COURSE FORM */
+
 #addCoursePrompt {
   transform: scale(0);
   pointer-events: none;
@@ -42,20 +73,18 @@ body {
   margin: 2rem 1rem;
 }
 
-#addCourseButton:hover,
+#addCoursePrompt:hover,
 #homeButton {
   cursor: pointer;
 }
 
-/* ADD COURSE FORM */
-
 #addCourseForm {
-  transform: scale(0);
+  display: none;
   pointer-events: none;
 }
 
 #addCourseForm.active {
-  transform: scale(1);
+  display: block;
   pointer-events: all;
 }
 
@@ -105,16 +134,13 @@ select {
   gap: 0.5rem;
 }
 
-#addCourseButton2 {
+#addCourseButton {
   font-size: 1.2rem;
-  width: 9rem;
 
-  height: 2rem;
+  padding: 0.25rem 1rem;
+
   border: none;
   border-radius: 0.25rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-weight: bold;
   background-color: #d4d4d4;
   transition: 0.25s;
@@ -122,23 +148,25 @@ select {
 
 #cancelAddCourseButton {
   font-size: 1.2rem;
-  width: 9rem;
-
+  padding: 0.25rem 1rem;
   height: 2rem;
   border: none;
   border-radius: 0.25rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-weight: bold;
   background-color: #d4d4d4;
   transition: 0.25s;
 }
 
-#addCourseButton2:hover,
+#addCourseButton:hover,
 #cancelAddCourseButton:hover {
   background-color: #f2f2f2;
 }
+
+#addCourseButton:hover {
+  color: #e6a715;
+}
+
+/* CONTENT */
 
 #content {
   flex-grow: 3;
