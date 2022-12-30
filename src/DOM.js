@@ -1,3 +1,5 @@
+export { courseAdditionController, courseEditAndDeleteController };
+
 const courseAdditionController = (() => {
   //Add a course prompt
   const addCoursePromptOnClick = () => {
@@ -21,7 +23,6 @@ const courseAdditionController = (() => {
   };
 
   //Adding a course
-
   const addCourse = () => {
     const addCourseButton = document.getElementById("addCourseButton");
     addCourseButton.addEventListener("click", (event) => {
@@ -40,6 +41,8 @@ const courseAdditionController = (() => {
 
       toggleAddCourseForm();
       toggleAddCoursePrompt();
+
+      courseEditAndDeleteController.courseOnHover();
       document.getElementById("addCourseForm").reset();
     });
   };
@@ -63,4 +66,31 @@ const Course = (courseName, courseCredit) => {
   return { getCourseName, getCourseCredit };
 };
 
-export { courseAdditionController };
+const courseEditAndDeleteController = (() => {
+  const courseOnHover = () => {
+    let courses = Array.from(document.getElementsByClassName("course"));
+
+    let coursesInnerHtml = [];
+
+    courses.forEach((element, index) => {
+      coursesInnerHtml[index] = element.innerHTML;
+    });
+
+    console.log(coursesInnerHtml);
+
+    courses.forEach((element) => {
+      element.addEventListener("mouseenter", () => {
+        element.innerHTML = "Edit or Delete";
+        element.classList.toggle("hover");
+      });
+    });
+
+    courses.forEach((element, index) => {
+      element.addEventListener("mouseleave", () => {
+        element.innerHTML = coursesInnerHtml[index];
+        element.classList.toggle("hover");
+      });
+    });
+  };
+  return { courseOnHover };
+})();
