@@ -1,36 +1,50 @@
-/*
-Adding a course
-- Name, Weight
+import { taskAdditionController } from "./DOM.js";
+export { Course, courseTabController };
 
-Editing a course
-
-Deleting a course
-
-*/
-
-const Course = (courseName, weight) => {
-  const getName = () => {
-    return courseName;
-  };
-  const getWeight = () => {
-    return weight;
-  };
-  return { getName, getWeight };
+const Course = (courseName, courseCredit) => {
+  const getCourseName = () => courseName;
+  const getCourseCredit = () => courseCredit;
+  const taskArray = [];
+  const getTaskArray = () => taskArray;
+  return { getCourseName, getCourseCredit, taskArray };
 };
 
-// const Controller = () => {
-//   console.log("fart");
-// };
+const courseTabController = (() => {
+  const contentDiv = document.getElementById("content");
 
-// const courseDOM = () => {
-//   const addCourseButton = document.getElementById("addCourseButton");
-//   return { addCourseButton };
-// };
+  const changeTabs = (e) => {
+    let target = e.target;
+    //Add Task Button
+    const addTaskPrompt = document.createElement("button");
+    addTaskPrompt.setAttribute("id", "addTaskPrompt");
+    addTaskPrompt.classList.add("active");
+    addTaskPrompt.innerHTML = "+ Add Task";
+    contentDiv.prepend(addTaskPrompt);
 
-// const sayHello = () => {
-//   console.log("hello");
-// };
+    //Title
+    const courseTitle = document.createElement("h");
+    courseTitle.setAttribute("id", "courseTitle");
+    courseTitle.innerHTML = target.innerHTML;
+    contentDiv.prepend(courseTitle);
 
-const course = Course("Name", 0.5);
+    //Tasklist
+    const taskList = document.createElement("div");
+    taskList.setAttribute("id", "taskList");
+    contentDiv.append(taskList);
 
-export { Course };
+    //Add Event listener to the Task Button
+    taskAdditionController.addTaskPromptOnClick();
+
+    //Build all the courses stored in localstorage.
+  };
+
+  const courseTabListener = (course) => {
+    if (course != undefined) {
+      course.addEventListener("click", (e) => {
+        contentDiv.innerHTML = "";
+        changeTabs(e);
+      });
+    }
+  };
+  return { courseTabListener };
+})();

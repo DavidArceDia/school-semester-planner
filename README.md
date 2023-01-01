@@ -6,8 +6,13 @@
 
 ### Course Properties
 
+Recives:
+
 - Name
 - Weight
+
+Returns:
+
 - Average
 - Progress
 
@@ -18,4 +23,5 @@
 - Weight
 - Mark
 - Priority
-- Edit, Delete
+
+- Can be edited, crossed out, or deleted.

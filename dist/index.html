@@ -39,6 +39,53 @@
       <button class="active" id="addCoursePrompt">+ Add Course</button>
     </section>
 
-    <section id="content"></section>
+    <section id="content"><div id="taskList"></div></section>
+
+    <div id="overlay"></div>
+
+    <div class="" id="addTaskModal">
+      <form action="" class="active" id="addTaskForm">
+        <ul id="addTaskFormWrapper">
+          <li class="formRow" id="formRowTaskName">
+            <label for="taskName">Task:</label>
+            <input type="text" name="taskName" id="taskName" required />
+          </li>
+
+          <li class="formRow" id="formRowTaskDueDate">
+            <label for="taskDueDate">Due Date:</label>
+            <input type="text" name="taskDueDate" id="taskDueDate" required />
+          </li>
+
+          <li class="formRow" id="formRowTaskWeight">
+            <label for="taskWeight">Weight/100:</label>
+            <input
+              type="number"
+              step="0.5"
+              min="0"
+              max="100"
+              name="taskWeight"
+              id="taskWeight"
+              required
+            />
+          </li>
+
+          <li class="formRow" id="formRowTaskMark">
+            <label for="taskMark">Mark/100:</label>
+            <input
+              type="number"
+              step="0.5"
+              min="0"
+              max="120"
+              name="taskMark"
+              id="taskMark"
+            />
+          </li>
+          <li class="formRow" id="addTaskSubmitFormRow">
+            <button type="button" id="cancelAddTaskButton">Cancel</button>
+            <button id="addTaskButton">Add Task</button>
+          </li>
+        </ul>
+      </form>
+    </div>
   </body>
 </html>
