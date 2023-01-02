@@ -188,14 +188,17 @@ body {
   align-items: flex-start;
 }
 
-#courseTitle {
-  font-size: 2rem;
-  font-weight: bold;
-  color: black;
+#courseTitleDiv {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+#courseTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
 }
 
 #deleteCourseButton {

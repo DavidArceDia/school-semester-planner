@@ -34,7 +34,7 @@ const displayCourse = (course) => {
   courseList.appendChild(courseElement);
 
   //From course.js, listen for click and run functions that display the right page.
-  addCourseTabListener(courseElement);
+  return courseElement;
 };
 
 const updateCoursesLocalStorage = () => {
@@ -52,7 +52,13 @@ const addCourse = () => {
 
     let course = buildCourseFromForm();
     courseArray.push(course);
-    displayCourse(course);
+    let courseElement = displayCourse(course);
+
+    //adds the tab functionality to the newly build and displayed course.
+    //CourseElement (from displayCourse) is the nav element.
+    addCourseTabListener(courseElement);
+
+    //addDeleteCourseListener();
 
     //Iterates through courseArray and updates localstorage.
     updateCoursesLocalStorage();

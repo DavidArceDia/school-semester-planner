@@ -65,7 +65,8 @@ const determineCourse = () => {
   }
 };
 
-const displayLocallyStoredTasks = (courseTitle) => {
+const displayLocallyStoredTasks = () => {
+  let courseTitle = document.getElementById("courseTitle").innerText;
   //finding the course's index
   let courseIndex = 0;
   for (let i = 0; i < courseArray.length; i++) {

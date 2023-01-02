@@ -59,17 +59,22 @@ const buildLocallyStoredCourses = (courseIndex) => {
 const buildNewTab = (target) => {
   const contentDiv = document.getElementById("content");
 
+  const courseTitleDiv = document.createElement("div");
+  courseTitleDiv.setAttribute("id", "courseTitleDiv");
+
   //Title
   const courseTitle = document.createElement("h");
   courseTitle.setAttribute("id", "courseTitle");
   courseTitle.innerHTML = target.innerHTML;
-  contentDiv.append(courseTitle);
+  courseTitleDiv.append(courseTitle);
 
   //DeleteCourseButton
   const deleteCourseButton = document.createElement("button");
   deleteCourseButton.setAttribute("id", "deleteCourseButton");
   deleteCourseButton.innerHTML = "Delete";
-  courseTitle.append(deleteCourseButton);
+  courseTitleDiv.append(deleteCourseButton);
+
+  contentDiv.append(courseTitleDiv);
 
   //Add Task Button
   const addTaskPrompt = document.createElement("button");

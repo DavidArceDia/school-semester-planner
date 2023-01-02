@@ -2,6 +2,7 @@ import {
   addTaskPromptOnClick,
   displayLocallyStoredTasks,
 } from "./taskAddition";
+import { addDeleteCourseOnClick } from "./courseDeletion.js";
 import { buildNewTab } from "./DOM.js";
 export { Course, addCourseTabListener, buildCourseFromForm };
 
@@ -29,11 +30,14 @@ const changeTabs = (e) => {
 
   buildNewTab(target);
 
-  //Add Event listener to the Task Button
+  //add Event listener to the deleteCourse Button
+  addDeleteCourseOnClick();
+
+  //Add Event listener to the addTask Button
   addTaskPromptOnClick();
 
   //Build all the courses stored in localstorage.
-  displayLocallyStoredTasks(courseTitle.innerHTML);
+  displayLocallyStoredTasks();
 };
 
 const addCourseTabListener = (course) => {
