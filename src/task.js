@@ -1,4 +1,5 @@
-import { courseArray } from "./DOM.js";
+import { courseArray } from "./index.js";
+
 export { Task };
 
 const Task = (taskName, taskDueDate, taskWeight, taskMark) => {

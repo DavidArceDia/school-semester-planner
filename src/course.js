@@ -1,5 +1,9 @@
-import { taskAdditionController } from "./DOM.js";
-export { Course, courseTabController };
+import {
+  addTaskPromptOnClick,
+  displayLocallyStoredTasks,
+} from "./taskAddition";
+import { buildNewTab } from "./DOM.js";
+export { Course, addCourseTabListener, buildCourseFromForm };
 
 const Course = (courseName, courseCredit) => {
   const getCourseName = () => courseName;
@@ -9,43 +13,34 @@ const Course = (courseName, courseCredit) => {
   return { getCourseName, getCourseCredit, taskArray };
 };
 
-const courseTabController = (() => {
-  const contentDiv = document.getElementById("content");
+//Building a course from form
+const buildCourseFromForm = () => {
+  let courseName = document.getElementById("courseName").value;
+  let courseCredit = document.getElementById("courseCredit").value;
+  let course = Course(courseName, courseCredit);
 
-  const changeTabs = (e) => {
-    let target = e.target;
-    //Add Task Button
-    const addTaskPrompt = document.createElement("button");
-    addTaskPrompt.setAttribute("id", "addTaskPrompt");
-    addTaskPrompt.classList.add("active");
-    addTaskPrompt.innerHTML = "+ Add Task";
-    contentDiv.prepend(addTaskPrompt);
+  return course;
+};
 
-    //Title
-    const courseTitle = document.createElement("h");
-    courseTitle.setAttribute("id", "courseTitle");
-    courseTitle.innerHTML = target.innerHTML;
-    contentDiv.prepend(courseTitle);
+const contentDiv = document.getElementById("content");
 
-    //Tasklist
-    const taskList = document.createElement("div");
-    taskList.setAttribute("id", "taskList");
-    contentDiv.append(taskList);
+const changeTabs = (e) => {
+  let target = e.target;
 
-    //Add Event listener to the Task Button
-    taskAdditionController.addTaskPromptOnClick();
+  buildNewTab(target);
 
-    //Build all the courses stored in localstorage.
-    taskAdditionController.displayLocallyStoredTasks(courseTitle.innerHTML);
-  };
+  //Add Event listener to the Task Button
+  addTaskPromptOnClick();
 
-  const courseTabListener = (course) => {
-    if (course != undefined) {
-      course.addEventListener("click", (e) => {
-        contentDiv.innerHTML = "";
-        changeTabs(e);
-      });
-    }
-  };
-  return { courseTabListener };
-})();
+  //Build all the courses stored in localstorage.
+  displayLocallyStoredTasks(courseTitle.innerHTML);
+};
+
+const addCourseTabListener = (course) => {
+  if (course != undefined) {
+    course.addEventListener("click", (e) => {
+      contentDiv.innerHTML = "";
+      changeTabs(e);
+    });
+  }
+};

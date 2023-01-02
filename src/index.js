@@ -1,27 +1,24 @@
 import "./style.css";
 import homeButtonImage from "./homeButton.jpg";
-import {
-  courseAdditionController,
-  taskAdditionController,
-  courseArray,
-} from "./DOM.js";
-import { courseTabController } from "./course.js";
+
+import { displayLocallyStoredCourses, addCourse } from "./courseAddition.js";
+import { cancelAddTask, addTask } from "./taskAddition.js";
+import {} from "./course.js";
+import { addCoursePromptOnClick, cancelAddCoursePromptOnClick } from "./DOM.js";
+export { courseArray };
 
 const homeButton = new Image();
 homeButton.src = homeButtonImage;
 
 document.getElementById("homeButton").appendChild(homeButton);
 
-courseAdditionController.addCoursePromptOnClick();
+const courseArray = [];
 
-courseAdditionController.cancelAddCoursePromptOnClick();
+//courseAddition
+addCoursePromptOnClick();
+cancelAddCoursePromptOnClick();
+displayLocallyStoredCourses();
+addCourse();
 
-courseAdditionController.displayLocallyStoredCourses();
-
-courseAdditionController.addCourse();
-
-courseTabController.courseTabListener();
-
-taskAdditionController.cancelAddTask();
-
-taskAdditionController.addTask();
+cancelAddTask();
+addTask();
