@@ -46,7 +46,8 @@ const buildTask = () => {
   let taskDueDate = document.getElementById("taskDueDate").value;
   let taskWeight = document.getElementById("taskWeight").value;
   let taskMark = document.getElementById("taskMark").value;
-  let task = Task(taskName, taskDueDate, taskWeight, taskMark);
+  let taskPriority = document.getElementById("taskPriority").value;
+  let task = Task(taskName, taskDueDate, taskWeight, taskMark, taskPriority);
 
   return task;
 };
@@ -77,6 +78,7 @@ const displayLocallyStoredTasks = () => {
 
   for (let i = 0; i < 50; i++) {
     while (localStorage.getItem(`course${courseIndex}Task${i}Name`) != null) {
+      console.log(courseIndex, i);
       // Build locally stored courses on the DOM
       const taskList = document.getElementById("taskList");
       const taskDiv = document.createElement("div");
@@ -85,6 +87,19 @@ const displayLocallyStoredTasks = () => {
       const taskCheckbox = document.createElement("button");
       taskCheckbox.classList.add("taskCheckbox");
       taskDiv.append(taskCheckbox);
+      if (
+        localStorage.getItem(`course${courseIndex}Task${i}Priority`) == "high"
+      ) {
+        taskCheckbox.classList.add("highPriority");
+      } else if (
+        localStorage.getItem(`course${courseIndex}Task${i}Priority`) == "medium"
+      ) {
+        taskCheckbox.classList.add("mediumPriority");
+      } else if (
+        localStorage.getItem(`course${courseIndex}Task${i}Priority`) == "low"
+      ) {
+        taskCheckbox.classList.add("lowPriority");
+      }
 
       const taskName = document.createElement("p");
       taskName.classList.add("taskName");
@@ -121,7 +136,8 @@ const displayLocallyStoredTasks = () => {
       let taskD = localStorage.getItem(`course${courseIndex}Task${i}DueDate`);
       let taskW = localStorage.getItem(`course${courseIndex}Task${i}Weight`);
       let taskM = localStorage.getItem(`course${courseIndex}Task${i}Mark`);
-      let task = Task(taskN, taskD, taskW, taskM);
+      let taskP = localStorage.getItem(`course${courseIndex}Task${i}Priority`);
+      let task = Task(taskN, taskD, taskW, taskM, taskP);
       courseArray[courseIndex].taskArray.push(task);
 
       i++;
@@ -138,6 +154,14 @@ const displayTask = (task) => {
   const taskCheckbox = document.createElement("button");
   taskCheckbox.classList.add("taskCheckbox");
   taskDiv.append(taskCheckbox);
+  if (task.getTaskPriority() == "high") {
+    taskCheckbox.classList.add("highPriority");
+  } else if (task.getTaskPriority() == "medium") {
+    taskCheckbox.classList.add("mediumPriority");
+  } else if (task.getTaskPriority() == "low") {
+    taskCheckbox.classList.add("lowPriority");
+  } else {
+  }
 
   const taskName = document.createElement("p");
   taskName.classList.add("taskName");
@@ -160,6 +184,33 @@ const displayTask = (task) => {
   taskDiv.append(taskMark);
 
   taskList.append(taskDiv);
+
+  return { taskCheckbox };
+};
+
+const updateTasksLocalStorage = (courseIndex) => {
+  courseArray[courseIndex].taskArray.forEach((task, index) => {
+    localStorage.setItem(
+      `course${courseIndex}Task${index}Name`,
+      `${task.getTaskName()}`
+    );
+    localStorage.setItem(
+      `course${courseIndex}Task${index}DueDate`,
+      `${task.getTaskDueDate()}`
+    );
+    localStorage.setItem(
+      `course${courseIndex}Task${index}Weight`,
+      `${task.getTaskWeight()}`
+    );
+    localStorage.setItem(
+      `course${courseIndex}Task${index}Mark`,
+      `${task.getTaskMark()}`
+    );
+    localStorage.setItem(
+      `course${courseIndex}Task${index}Priority`,
+      `${task.getTaskPriority()}`
+    );
+  });
 };
 
 const addTask = () => {
@@ -167,49 +218,89 @@ const addTask = () => {
 
   addTaskButton.addEventListener("click", (event) => {
     event.preventDefault();
+    const taskName = document.getElementById("taskName");
 
-    let task = buildTask();
+    if (taskName.validity.valueMissing) {
+      taskName.setAttribute("placeholder", "This input is required");
+    } else {
+      taskName.setAttribute("placeholder", "");
 
-    let courseIndex = determineCourse();
+      let task = buildTask();
+      let courseIndex = determineCourse();
 
-    //Pushes task to the correct course's task array.
-    courseArray[courseIndex].taskArray.push(task);
-    //Now add to local storage:
-    courseArray[courseIndex].taskArray.forEach((task, index) => {
-      localStorage.setItem(
-        `course${courseIndex}Task${index}Name`,
-        `${task.getTaskName()}`
+      //Pushes task to the correct course's task array.
+      courseArray[courseIndex].taskArray.push(task);
+      console.log(
+        "first course, in array",
+        courseArray[0].taskArray[0].getTaskName(),
+        courseArray[0].taskArray[0].getTaskDueDate(),
+        courseArray[0].taskArray[0].getTaskWeight(),
+        courseArray[0].taskArray[0].getTaskMark(),
+        courseArray[0].taskArray[0].getTaskPriority()
       );
-      localStorage.setItem(
-        `course${courseIndex}Task${index}DueDate`,
-        `${task.getTaskDueDate()}`
+      //Contains an object with the new task's listening elements. The same function runs
+      //when displaying locally stored tasks.
+      let listeningTaskElements = displayTask(task);
+
+      //Now add to local storage:
+      // courseArray[courseIndex].taskArray.forEach((task, index) => {
+      //   localStorage.setItem(
+      //     `course${courseIndex}Task${index}Name`,
+      //     `${task.getTaskName()}`
+      //   );
+      //   localStorage.setItem(
+      //     `course${courseIndex}Task${index}DueDate`,
+      //     `${task.getTaskDueDate()}`
+      //   );
+      //   localStorage.setItem(
+      //     `course${courseIndex}Task${index}Weight`,
+      //     `${task.getTaskWeight()}`
+      //   );
+      //   localStorage.setItem(
+      //     `course${courseIndex}Task${index}Mark`,
+      //     `${task.getTaskMark()}`
+      //   );
+      //   localStorage.setItem(
+      //     `course${courseIndex}Task${index}Priority`,
+      //     `${task.getTaskPriority()}`
+      //   );
+      // });
+      updateTasksLocalStorage(courseIndex);
+      console.log(
+        "first course, in local storage (after updating)",
+        localStorage.getItem("course0Task0Name"),
+        localStorage.getItem("course0Task0DueDate"),
+        localStorage.getItem("course0Task0Weight"),
+        localStorage.getItem("course0Task0Mark"),
+        localStorage.getItem("course0Task0Priority"),
+
+        "first course, in array (after updating)",
+        courseArray[courseIndex].taskArray[0].getTaskName(),
+        courseArray[courseIndex].taskArray[0].getTaskDueDate(),
+        courseArray[courseIndex].taskArray[0].getTaskWeight(),
+        courseArray[courseIndex].taskArray[0].getTaskMark(),
+        courseArray[courseIndex].taskArray[0].getTaskPriority()
       );
-      localStorage.setItem(
-        `course${courseIndex}Task${index}Weight`,
-        `${task.getTaskWeight()}`
-      );
-      localStorage.setItem(
-        `course${courseIndex}Task${index}Mark`,
-        `${task.getTaskMark()}`
-      );
-    });
 
-    displayTask(task);
+      toggleAddTaskForm();
+      toggleAddTaskModal();
 
-    // //First clear the taskList, then display all the tasks.
-    // document.getElementById("taskList").innerHTML = "";
+      document.getElementById("addTaskForm").reset();
+    }
+    console.log(
+      "first course, in local storage right at the end of the run",
+      localStorage.getItem("course0Task0Name"),
+      localStorage.getItem("course0Task0DueDate"),
+      localStorage.getItem("course0Task0Weight"),
+      localStorage.getItem("course0Task0Mark"),
+      localStorage.getItem("course0Task0Priority"),
 
-    // for (
-    //   let taskIndex = 0;
-    //   taskIndex < courseArray[courseIndex].taskArray.length;
-    //   taskIndex++
-    // ) {
-    //   displayTask(courseIndex, taskIndex);
-    // }
-
-    toggleAddTaskForm();
-    toggleAddTaskModal();
-
-    document.getElementById("addTaskForm").reset();
+      "first course, in array right at the end of the run",
+      courseArray[0].taskArray[0].getTaskName(),
+      courseArray[0].taskArray[0].getTaskDueDate(),
+      courseArray[0].taskArray[0].getTaskWeight(),
+      courseArray[0].taskArray[0].getTaskMark(),
+      courseArray[0].taskArray[0].getTaskPriority()
+    );
   });
 };

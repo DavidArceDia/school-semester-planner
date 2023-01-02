@@ -33,7 +33,6 @@ const displayCourse = (course) => {
   courseElement.innerHTML = `${course.getCourseName()}`;
   courseList.appendChild(courseElement);
 
-  //From course.js, listen for click and run functions that display the right page.
   return courseElement;
 };
 

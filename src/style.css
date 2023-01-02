@@ -68,7 +68,7 @@ body {
 #addCoursePrompt.active {
   transform: scale(1);
   pointer-events: all;
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-style: italic;
   font-weight: bold;
   border: none;
@@ -196,7 +196,7 @@ body {
 }
 
 #courseTitle {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: bold;
   color: black;
 }
@@ -228,7 +228,7 @@ body {
 #addTaskPrompt.active {
   transform: scale(1);
   pointer-events: all;
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-style: italic;
   font-weight: bold;
   border: none;
@@ -299,7 +299,8 @@ body {
   padding: 0.25rem;
 }
 
-#addTaskFormWrapper > .formRow > input {
+#addTaskFormWrapper > .formRow > input,
+#addTaskFormWrapper > .formRow > select {
   all: unset;
   border-radius: 0.25rem;
   background-color: white;
@@ -356,6 +357,22 @@ body {
   color: #9a7aa0;
 }
 
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ff8787;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #ff8787;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #ff8787;
+}
+
 #overlay {
   position: fixed;
   opacity: 0;
@@ -394,9 +411,19 @@ body {
   width: 1.5rem;
   height: 1.5rem;
 
-  background-color: #23967f;
-  border: none;
+  background-color: white;
+  border: 0.35rem solid #23967f;
   border-radius: 50%;
+}
+
+.taskCheckbox.lowPriority {
+  border: 0.35rem solid #23967f;
+}
+.taskCheckbox.mediumPriority {
+  border: 0.35rem solid #e6a715;
+}
+.taskCheckbox.highPriority {
+  border: 0.35rem solid #ff8787;
 }
 
 .taskName {

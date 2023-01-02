@@ -21,4 +21,5 @@ displayLocallyStoredCourses();
 addCourse();
 
 cancelAddTask();
+
 addTask();
