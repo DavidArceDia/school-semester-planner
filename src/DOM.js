@@ -51,7 +51,7 @@ const courseAdditionController = (() => {
     }
   };
 
-  //Building a course
+  //Building a course from form
   const buildCourse = () => {
     let courseName = document.getElementById("courseName").value;
     let courseCredit = document.getElementById("courseCredit").value;
@@ -115,23 +115,23 @@ const toggleAddCoursePrompt = () => {
   addCoursePrompt.classList.toggle("active");
 };
 
-const courseEditAndDeleteController = (() => {
-  const courseOnHover = (course) => {
-    let courseInnerHtml = course.innerHTML;
+// const courseEditAndDeleteController = (() => {
+//   const courseOnHover = (course) => {
+//     let courseInnerHtml = course.innerHTML;
 
-    course.addEventListener("mouseenter", () => {
-      //course.innerHTML = "Edit or Delete";
-      course.classList.toggle("hover");
-    });
+//     course.addEventListener("mouseenter", () => {
+//       //course.innerHTML = "Edit or Delete";
+//       course.classList.toggle("hover");
+//     });
 
-    course.addEventListener("mouseleave", () => {
-      //course.innerHTML = courseInnerHtml;
-      course.classList.toggle("hover");
-    });
-  };
+//     course.addEventListener("mouseleave", () => {
+//       //course.innerHTML = courseInnerHtml;
+//       course.classList.toggle("hover");
+//     });
+//   };
 
-  return { courseOnHover };
-})();
+//   return { courseOnHover };
+// })();
 
 const taskAdditionController = (() => {
   const addTaskPromptOnClick = () => {
@@ -148,9 +148,9 @@ const taskAdditionController = (() => {
     cancelAddTaskButton.addEventListener("click", () => {
       toggleAddTaskForm();
       toggleAddTaskModal();
-    });
 
-    document.getElementById("addTaskForm").reset();
+      document.getElementById("addTaskForm").reset();
+    });
   };
 
   const buildTask = () => {
@@ -169,6 +169,9 @@ const taskAdditionController = (() => {
       courseIndex <= courseArray.length;
       courseIndex++
     ) {
+      if (document.getElementById("courseTitle") == null) {
+        return;
+      }
       if (
         document.getElementById("courseTitle").innerHTML ==
         localStorage.getItem(`course${courseIndex}Name`)
@@ -178,26 +181,100 @@ const taskAdditionController = (() => {
     }
   };
 
-  const displayTask = (courseIndex, task) => {
-    const courseList = document.getElementById("courseList");
+  const displayLocallyStoredTasks = (courseTitle) => {
+    //finding the course's index
+    let courseIndex = 0;
+    for (let i = 0; i < courseArray.length; i++) {
+      if (courseArray[i].getCourseName() == courseTitle) {
+        courseIndex = i;
+      }
+    }
 
-    const course = document.createElement("div");
-    course.classList.add("course");
+    for (let i = 0; i < 50; i++) {
+      while (localStorage.getItem(`course${courseIndex}Task${i}Name`) != null) {
+        // Build locally stored courses on the DOM
+        const taskList = document.getElementById("taskList");
+        const taskDiv = document.createElement("div");
+        taskDiv.classList.add("task");
 
-    const courseCheckbox = document.createElement("button");
-    courseCheckbox.classList.add("courseCheckbox");
+        const taskCheckbox = document.createElement("button");
+        taskCheckbox.classList.add("taskCheckbox");
+        taskDiv.append(taskCheckbox);
 
-    const courseTitle = document.createElement("p");
-    courseTitle.classList.add("courseTitle");
+        const taskName = document.createElement("p");
+        taskName.classList.add("taskName");
+        taskName.innerHTML = `${localStorage.getItem(
+          `course${courseIndex}Task${i}Name`
+        )}`;
+        taskDiv.append(taskName);
 
-    const courseDueDate = document.createElement("p");
-    courseDueDate.classList.add("courseDueDate");
+        const taskDueDate = document.createElement("p");
+        taskDueDate.classList.add("taskDueDate");
+        taskDueDate.innerHTML = `${localStorage.getItem(
+          `course${courseIndex}Task${i}DueDate`
+        )}`;
+        taskDiv.append(taskDueDate);
 
-    const courseWeight = document.createElement("p");
-    courseWeight.classList.add("courseWeight");
+        const taskWeight = document.createElement("p");
+        taskWeight.classList.add("taskWeight");
+        taskWeight.innerHTML = `${localStorage.getItem(
+          `course${courseIndex}Task${i}Weight`
+        )}%`;
+        taskDiv.append(taskWeight);
 
-    const courseMark = document.createElement("p");
-    courseMark.classList.add("courseMark");
+        const taskMark = document.createElement("p");
+        taskMark.classList.add("taskMark");
+        taskMark.innerHTML = `${localStorage.getItem(
+          `course${courseIndex}Task${i}Mark`
+        )}%`;
+        taskDiv.append(taskMark);
+
+        taskList.append(taskDiv);
+
+        // //Add locally stored tasks to the array
+        let taskN = localStorage.getItem(`course${courseIndex}Task${i}Name`);
+        let taskD = localStorage.getItem(`course${courseIndex}Task${i}DueDate`);
+        let taskW = localStorage.getItem(`course${courseIndex}Task${i}Weight`);
+        let taskM = localStorage.getItem(`course${courseIndex}Task${i}Mark`);
+        let task = Task(taskN, taskD, taskW, taskM);
+        courseArray[courseIndex].taskArray.push(task);
+
+        i++;
+      }
+    }
+  };
+
+  const displayTask = (task) => {
+    const taskList = document.getElementById("taskList");
+
+    const taskDiv = document.createElement("div");
+    taskDiv.classList.add("task");
+
+    const taskCheckbox = document.createElement("button");
+    taskCheckbox.classList.add("taskCheckbox");
+    taskDiv.append(taskCheckbox);
+
+    const taskName = document.createElement("p");
+    taskName.classList.add("taskName");
+    taskName.innerHTML = `${task.getTaskName()}`;
+    taskDiv.append(taskName);
+
+    const taskDueDate = document.createElement("p");
+    taskDueDate.classList.add("taskDueDate");
+    taskDueDate.innerHTML = `${task.getTaskDueDate()}`;
+    taskDiv.append(taskDueDate);
+
+    const taskWeight = document.createElement("p");
+    taskWeight.classList.add("taskWeight");
+    taskWeight.innerHTML = `${task.getTaskWeight()}%`;
+    taskDiv.append(taskWeight);
+
+    const taskMark = document.createElement("p");
+    taskMark.classList.add("taskMark");
+    taskMark.innerHTML = `${task.getTaskMark()}%`;
+    taskDiv.append(taskMark);
+
+    taskList.append(taskDiv);
   };
 
   const addTask = () => {
@@ -209,12 +286,46 @@ const taskAdditionController = (() => {
       let task = buildTask();
 
       let courseIndex = determineCourse();
-      courseArray[courseIndex].taskArray.push(task);
 
-      displayTask(courseIndex, task);
+      //Pushes task to the correct course's task array.
+      courseArray[courseIndex].taskArray.push(task);
+      //Now add to local storage:
+      courseArray[courseIndex].taskArray.forEach((task, index) => {
+        localStorage.setItem(
+          `course${courseIndex}Task${index}Name`,
+          `${task.getTaskName()}`
+        );
+        localStorage.setItem(
+          `course${courseIndex}Task${index}DueDate`,
+          `${task.getTaskDueDate()}`
+        );
+        localStorage.setItem(
+          `course${courseIndex}Task${index}Weight`,
+          `${task.getTaskWeight()}`
+        );
+        localStorage.setItem(
+          `course${courseIndex}Task${index}Mark`,
+          `${task.getTaskMark()}`
+        );
+      });
+
+      displayTask(task);
+
+      // //First clear the taskList, then display all the tasks.
+      // document.getElementById("taskList").innerHTML = "";
+
+      // for (
+      //   let taskIndex = 0;
+      //   taskIndex < courseArray[courseIndex].taskArray.length;
+      //   taskIndex++
+      // ) {
+      //   displayTask(courseIndex, taskIndex);
+      // }
 
       toggleAddTaskForm();
       toggleAddTaskModal();
+
+      document.getElementById("addTaskForm").reset();
     });
   };
 
@@ -222,6 +333,7 @@ const taskAdditionController = (() => {
     addTaskPromptOnClick,
     cancelAddTask,
     addTask,
+    displayLocallyStoredTasks,
   };
 })();
 

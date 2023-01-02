@@ -36,6 +36,7 @@ const courseTabController = (() => {
     taskAdditionController.addTaskPromptOnClick();
 
     //Build all the courses stored in localstorage.
+    taskAdditionController.displayLocallyStoredTasks(courseTitle.innerHTML);
   };
 
   const courseTabListener = (course) => {

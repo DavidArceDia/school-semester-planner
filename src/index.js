@@ -25,5 +25,3 @@ courseTabController.courseTabListener();
 taskAdditionController.cancelAddTask();
 
 taskAdditionController.addTask();
-
-console.log(courseArray[0].taskArray);
