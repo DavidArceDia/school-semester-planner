@@ -413,19 +413,42 @@ body {
   background-color: white;
   border: 0.35rem solid #23967f;
   border-radius: 50%;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
 .taskCheckbox.lowPriority {
   border: 0.35rem solid #23967f;
 }
 .taskCheckbox.lowPriority:hover {
-  color: #23967f;
+  background-color: rgba(35, 150, 127, 0.5);
+}
+.taskCheckbox.lowPriority.checked {
+  background-color: #23967f;
+  border: 0.35rem solid #23967f;
+  border-radius: 50%;
 }
 .taskCheckbox.mediumPriority {
   border: 0.35rem solid #e6a715;
 }
+.taskCheckbox.mediumPriority:hover {
+  background-color: #e5a61580;
+}
+.taskCheckbox.mediumPriority.checked {
+  background-color: #e6a715;
+  border: 0.35rem solid #e6a715;
+  border-radius: 50%;
+}
 .taskCheckbox.highPriority {
   border: 0.35rem solid #ff8787;
+}
+.taskCheckbox.highPriority:hover {
+  background-color: #ff878780;
+}
+.taskCheckbox.highPriority.checked {
+  background-color: #ff8787;
+  border: 0.35rem solid #ff8787;
+  border-radius: 50%;
 }
 
 .taskName {
@@ -442,4 +465,10 @@ body {
 
 .taskMark {
   width: 5%;
+}
+
+.taskCrossOut {
+  position: absolute;
+  top: 50%;
+  width: 100%;
 }

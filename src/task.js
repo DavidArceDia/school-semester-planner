@@ -1,5 +1,5 @@
 import { courseArray } from "./index.js";
-export { Task };
+export { Task, addTaskListeners };
 
 const Task = (taskName, taskDueDate, taskWeight, taskMark, taskPriority) => {
   const getTaskName = () => taskName;
@@ -17,7 +17,14 @@ const Task = (taskName, taskDueDate, taskWeight, taskMark, taskPriority) => {
   };
 };
 
-//const addTaskListeners(taskCheckBox, )
+const addTaskListeners = (listeningTaskElements) => {
+  if (listeningTaskElements.taskCheckbox != undefined) {
+    listeningTaskElements.taskCheckbox.addEventListener("click", (e) => {
+      listeningTaskElements.taskCheckbox.classList.toggle("checked");
+    });
+  }
+};
+
 /*
 Your ‘todos’ are going to be objects that you’ll want to 
 dynamically create, which means either using factories or 

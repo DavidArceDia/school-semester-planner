@@ -1,4 +1,4 @@
-import { Task } from "./task.js";
+import { Task, addTaskListeners } from "./task.js";
 import { courseArray } from "./index.js";
 export {
   cancelAddTask,
@@ -77,10 +77,7 @@ const displayLocallyStoredTasks = () => {
   }
 
   for (let i = 0; i < 50; i++) {
-    console.log("hello");
-    console.log(courseIndex);
     while (localStorage.getItem(`course${courseIndex}Task${i}Name`) != null) {
-      console.log("hi");
       // Build locally stored courses on the DOM
       const taskList = document.getElementById("taskList");
       const taskDiv = document.createElement("div");
@@ -141,6 +138,10 @@ const displayLocallyStoredTasks = () => {
       let taskP = localStorage.getItem(`course${courseIndex}Task${i}Priority`);
       let task = Task(taskN, taskD, taskW, taskM, taskP);
       courseArray[courseIndex].taskArray.push(task);
+
+      //Add task listeners from elements created here
+      let listeningTaskElements = { taskCheckbox };
+      addTaskListeners(listeningTaskElements);
 
       i++;
     }
@@ -236,6 +237,8 @@ const addTask = () => {
       //when displaying locally stored tasks.
       let listeningTaskElements = displayTask(task);
 
+      //Add task listeners (checkbox, delete button) from elements made in displayTask
+      addTaskListeners(listeningTaskElements);
       //Now add to local storage:
       updateTasksLocalStorage(courseIndex);
 

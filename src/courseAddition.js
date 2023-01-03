@@ -72,38 +72,35 @@ const addCourse = () => {
     } else if (courseCredit.validity.valueMissing) {
       courseCredit.setAttribute("placeholder", "*This input is required");
       if (doesCourseAlreadyExist(courseName.value) == true) {
-        console.log(courseName.value);
-        courseName.value = "";
-        courseName.setAttribute("placeholder", "*This course already exists");
-      }
-    } else if (
-      !courseName.validity.valueMissing &&
-      !courseCredit.validity.valueMissing
-    ) {
-      if (doesCourseAlreadyExist(courseName.value) == true) {
-        console.log(courseName.value);
         courseName.value = "";
         courseName.setAttribute("placeholder", "*This course already exists");
       }
     } else {
-      courseName.setAttribute("placeholder", "");
-      courseCredit.setAttribute("placeholder", "");
+      if (doesCourseAlreadyExist(courseName.value) == true) {
+        courseName.value = "";
+        courseName.setAttribute("placeholder", "*This course already exists");
 
-      let course = buildCourseFromForm();
-      courseArray.push(course);
-      let courseElement = displayCourse(course);
+        console.log("he");
+      } else {
+        courseName.setAttribute("placeholder", "");
+        courseCredit.setAttribute("placeholder", "");
 
-      //adds the tab functionality to the newly build and displayed course.
-      //CourseElement (from displayCourse) is the nav element.
-      addCourseTabListener(courseElement);
+        let course = buildCourseFromForm();
+        courseArray.push(course);
+        let courseElement = displayCourse(course);
 
-      //Iterates through courseArray and updates localstorage.
-      updateCoursesLocalStorage();
+        //adds the tab functionality to the newly build and displayed course.
+        //CourseElement (from displayCourse) is the nav element.
+        addCourseTabListener(courseElement);
 
-      toggleAddCourseForm();
-      toggleAddCoursePrompt();
+        //Iterates through courseArray and updates localstorage.
+        updateCoursesLocalStorage();
 
-      document.getElementById("addCourseForm").reset();
+        toggleAddCourseForm();
+        toggleAddCoursePrompt();
+
+        document.getElementById("addCourseForm").reset();
+      }
     }
   });
 };
