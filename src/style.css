@@ -75,12 +75,11 @@ body {
   background-color: transparent;
   color: #e6a715;
   margin: 2rem 1rem;
-
-  transition: 0.25s;
 }
 
 #addCoursePrompt:hover {
   color: #efc86c;
+  transition: 0.25s;
 }
 
 #addCoursePrompt:hover,
@@ -418,6 +417,9 @@ body {
 
 .taskCheckbox.lowPriority {
   border: 0.35rem solid #23967f;
+}
+.taskCheckbox.lowPriority:hover {
+  color: #23967f;
 }
 .taskCheckbox.mediumPriority {
   border: 0.35rem solid #e6a715;

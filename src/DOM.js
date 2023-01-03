@@ -36,9 +36,16 @@ const cancelAddCoursePromptOnClick = () => {
   cancelAddCourseButton.addEventListener("click", () => {
     toggleAddCourseForm();
     toggleAddCoursePrompt();
-  });
 
-  document.getElementById("addCourseForm").reset();
+    //reset form inputs, placeholders
+    document.getElementById("addCourseForm").reset();
+
+    const courseName = document.getElementById("courseName");
+    const courseCredit = document.getElementById("courseCredit");
+
+    courseName.setAttribute("placeholder", "");
+    courseCredit.setAttribute("placeholder", "");
+  });
 };
 
 //Build locally stored courses on the DOM

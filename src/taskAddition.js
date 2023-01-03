@@ -77,8 +77,10 @@ const displayLocallyStoredTasks = () => {
   }
 
   for (let i = 0; i < 50; i++) {
+    console.log("hello");
+    console.log(courseIndex);
     while (localStorage.getItem(`course${courseIndex}Task${i}Name`) != null) {
-      console.log(courseIndex, i);
+      console.log("hi");
       // Build locally stored courses on the DOM
       const taskList = document.getElementById("taskList");
       const taskDiv = document.createElement("div");
@@ -230,77 +232,17 @@ const addTask = () => {
 
       //Pushes task to the correct course's task array.
       courseArray[courseIndex].taskArray.push(task);
-      console.log(
-        "first course, in array",
-        courseArray[0].taskArray[0].getTaskName(),
-        courseArray[0].taskArray[0].getTaskDueDate(),
-        courseArray[0].taskArray[0].getTaskWeight(),
-        courseArray[0].taskArray[0].getTaskMark(),
-        courseArray[0].taskArray[0].getTaskPriority()
-      );
       //Contains an object with the new task's listening elements. The same function runs
       //when displaying locally stored tasks.
       let listeningTaskElements = displayTask(task);
 
       //Now add to local storage:
-      // courseArray[courseIndex].taskArray.forEach((task, index) => {
-      //   localStorage.setItem(
-      //     `course${courseIndex}Task${index}Name`,
-      //     `${task.getTaskName()}`
-      //   );
-      //   localStorage.setItem(
-      //     `course${courseIndex}Task${index}DueDate`,
-      //     `${task.getTaskDueDate()}`
-      //   );
-      //   localStorage.setItem(
-      //     `course${courseIndex}Task${index}Weight`,
-      //     `${task.getTaskWeight()}`
-      //   );
-      //   localStorage.setItem(
-      //     `course${courseIndex}Task${index}Mark`,
-      //     `${task.getTaskMark()}`
-      //   );
-      //   localStorage.setItem(
-      //     `course${courseIndex}Task${index}Priority`,
-      //     `${task.getTaskPriority()}`
-      //   );
-      // });
       updateTasksLocalStorage(courseIndex);
-      console.log(
-        "first course, in local storage (after updating)",
-        localStorage.getItem("course0Task0Name"),
-        localStorage.getItem("course0Task0DueDate"),
-        localStorage.getItem("course0Task0Weight"),
-        localStorage.getItem("course0Task0Mark"),
-        localStorage.getItem("course0Task0Priority"),
-
-        "first course, in array (after updating)",
-        courseArray[courseIndex].taskArray[0].getTaskName(),
-        courseArray[courseIndex].taskArray[0].getTaskDueDate(),
-        courseArray[courseIndex].taskArray[0].getTaskWeight(),
-        courseArray[courseIndex].taskArray[0].getTaskMark(),
-        courseArray[courseIndex].taskArray[0].getTaskPriority()
-      );
 
       toggleAddTaskForm();
       toggleAddTaskModal();
 
       document.getElementById("addTaskForm").reset();
     }
-    console.log(
-      "first course, in local storage right at the end of the run",
-      localStorage.getItem("course0Task0Name"),
-      localStorage.getItem("course0Task0DueDate"),
-      localStorage.getItem("course0Task0Weight"),
-      localStorage.getItem("course0Task0Mark"),
-      localStorage.getItem("course0Task0Priority"),
-
-      "first course, in array right at the end of the run",
-      courseArray[0].taskArray[0].getTaskName(),
-      courseArray[0].taskArray[0].getTaskDueDate(),
-      courseArray[0].taskArray[0].getTaskWeight(),
-      courseArray[0].taskArray[0].getTaskMark(),
-      courseArray[0].taskArray[0].getTaskPriority()
-    );
   });
 };

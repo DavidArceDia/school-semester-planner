@@ -43,28 +43,67 @@ const updateCoursesLocalStorage = () => {
   });
 };
 
+const doesCourseAlreadyExist = (courseName) => {
+  for (let i = 0; i < courseArray.length; i++) {
+    if (courseArray[i].getCourseName() == courseName) {
+      return true;
+    }
+  }
+};
+
 //Adding a course
 const addCourse = () => {
   const addCourseButton = document.getElementById("addCourseButton");
   addCourseButton.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let course = buildCourseFromForm();
-    courseArray.push(course);
-    let courseElement = displayCourse(course);
+    const courseName = document.getElementById("courseName");
+    const courseCredit = document.getElementById("courseCredit");
 
-    //adds the tab functionality to the newly build and displayed course.
-    //CourseElement (from displayCourse) is the nav element.
-    addCourseTabListener(courseElement);
+    //The following if statements are the form validation, checking for input as well as no courseName duplicates.
+    if (
+      courseName.validity.valueMissing &&
+      courseCredit.validity.valueMissing
+    ) {
+      courseName.setAttribute("placeholder", "*This input is required");
+      courseCredit.setAttribute("placeholder", "*This input is required");
+    } else if (courseName.validity.valueMissing) {
+      courseName.setAttribute("placeholder", "*This input is required");
+    } else if (courseCredit.validity.valueMissing) {
+      courseCredit.setAttribute("placeholder", "*This input is required");
+      if (doesCourseAlreadyExist(courseName.value) == true) {
+        console.log(courseName.value);
+        courseName.value = "";
+        courseName.setAttribute("placeholder", "*This course already exists");
+      }
+    } else if (
+      !courseName.validity.valueMissing &&
+      !courseCredit.validity.valueMissing
+    ) {
+      if (doesCourseAlreadyExist(courseName.value) == true) {
+        console.log(courseName.value);
+        courseName.value = "";
+        courseName.setAttribute("placeholder", "*This course already exists");
+      }
+    } else {
+      courseName.setAttribute("placeholder", "");
+      courseCredit.setAttribute("placeholder", "");
 
-    //addDeleteCourseListener();
+      let course = buildCourseFromForm();
+      courseArray.push(course);
+      let courseElement = displayCourse(course);
 
-    //Iterates through courseArray and updates localstorage.
-    updateCoursesLocalStorage();
+      //adds the tab functionality to the newly build and displayed course.
+      //CourseElement (from displayCourse) is the nav element.
+      addCourseTabListener(courseElement);
 
-    toggleAddCourseForm();
-    toggleAddCoursePrompt();
+      //Iterates through courseArray and updates localstorage.
+      updateCoursesLocalStorage();
 
-    document.getElementById("addCourseForm").reset();
+      toggleAddCourseForm();
+      toggleAddCoursePrompt();
+
+      document.getElementById("addCourseForm").reset();
+    }
   });
 };
