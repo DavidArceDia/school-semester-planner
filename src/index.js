@@ -6,7 +6,13 @@ import { cancelAddTask, addTask } from "./taskAddition.js";
 import { Task } from "./task";
 import { Course, addCourseTabListener } from "./course.js";
 import { addCoursePromptOnClick, cancelAddCourse } from "./DOM.js";
-export { courseArray, updateLocalStorageFromArray, displayTask, displayCourse };
+export {
+  courseArray,
+  updateLocalStorageFromArray,
+  updateCourseArrayFromLocalStorage,
+  displayTask,
+  displayCourse,
+};
 
 const homeButton = new Image();
 homeButton.src = homeButtonImage;
@@ -19,11 +25,13 @@ const updateCourseArrayFromLocalStorage = () => {
   for (let courseIndex = 0; courseIndex < 50; courseIndex++) {
     //While a course still exists at this courseIndex,
     while (localStorage.getItem(`course${courseIndex}Name`) != null) {
+      console.log(courseIndex);
       //Build and add locally stored courses to the array
       let courseName = localStorage.getItem(`course${courseIndex}Name`);
       let courseCredit = localStorage.getItem(`course${courseIndex}Credit`);
       let course = Course(courseName, courseCredit);
-      courseArray.push(course);
+      //Replace the current course with the updated one
+      courseArray[courseIndex] = course;
       //for all of this course's tasks
       for (let taskIndex = 0; taskIndex < 200; taskIndex++) {
         //While a task still exists at this courseIndex and at this taskIndex
@@ -31,6 +39,7 @@ const updateCourseArrayFromLocalStorage = () => {
           localStorage.getItem(`course${courseIndex}Task${taskIndex}Name`) !=
           null
         ) {
+          console.log(courseIndex, taskIndex);
           //Build and add locally stored tasks to the appropriate course in the array
           let name = localStorage.getItem(
             `course${courseIndex}Task${taskIndex}Name`
@@ -47,7 +56,10 @@ const updateCourseArrayFromLocalStorage = () => {
           let priority = localStorage.getItem(
             `course${courseIndex}Task${taskIndex}Priority`
           );
-          let task = Task(name, dueDate, weight, mark, priority);
+          let completion = localStorage.getItem(
+            `course${courseIndex}Task${taskIndex}Completion`
+          );
+          let task = Task(name, dueDate, weight, mark, priority, completion);
           courseArray[courseIndex].taskArray.push(task);
           taskIndex++;
         }
@@ -85,6 +97,10 @@ const updateLocalStorageFromArray = () => {
       localStorage.setItem(
         `course${courseIndex}Task${taskIndex}Priority`,
         `${task.taskPriority}`
+      );
+      localStorage.setItem(
+        `course${courseIndex}Task${taskIndex}Completion`,
+        `${task.taskCompletion}`
       );
     });
   });
@@ -129,6 +145,15 @@ const displayTask = (task) => {
     taskCheckbox.classList.add("mediumPriority");
   } else if (task.taskPriority == "low") {
     taskCheckbox.classList.add("lowPriority");
+  } else {
+  }
+  if (task.taskCompletion == "true") {
+    taskCheckbox.classList.add("checked");
+  } else if (
+    task.taskCompletion == "false" &&
+    taskCheckbox.classList.contains("checked")
+  ) {
+    taskCheckbox.remove("checked");
   } else {
   }
 

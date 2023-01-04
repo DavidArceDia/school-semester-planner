@@ -96,9 +96,6 @@ const changeTabs = (e) => {
   //Add Event listener to the addTask Button
   addTaskPromptOnClick();
 
-  // //Build all the tasks stored in localstorage.
-  // displayTasksFromLocalStorage();
-
   let courseIndex = determineCourseIndex();
 
   for (

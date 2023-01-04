@@ -49,6 +49,24 @@ const buildTaskFromForm = () => {
 
   return task;
 };
+const doesTaskAlreadyExist = (taskName, event) => {
+  let courseName =
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.firstElementChild.nextElementSibling.firstElementChild
+      .firstElementChild.innerText;
+
+  console.log(courseName);
+
+  for (let i = 0; i < courseArray.length; i++) {
+    if (localStorage.getItem(`course${i}Name`) == courseName) {
+      for (let j = 0; j < courseArray[i].taskArray.length; j++) {
+        if (localStorage.getItem(`course${i}Task${j}Name`) == taskName) {
+          return true;
+        }
+      }
+    }
+  }
+};
 
 const addTask = () => {
   const addTaskButton = document.getElementById("addTaskButton");
@@ -59,6 +77,10 @@ const addTask = () => {
 
     if (taskName.validity.valueMissing) {
       taskName.setAttribute("placeholder", "This input is required");
+    }
+    if (doesTaskAlreadyExist(taskName.value, event) == true) {
+      taskName.value = "";
+      taskName.setAttribute("placeholder", "*This task already exists");
     } else {
       taskName.setAttribute("placeholder", "");
 
@@ -69,10 +91,6 @@ const addTask = () => {
       courseArray[courseIndex].taskArray.push(task);
 
       updateLocalStorageFromArray();
-
-      //
-
-      //
 
       //deletes everything in the taskList and builds it all again
       document.getElementById("taskList").innerHTML = "";
