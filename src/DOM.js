@@ -1,7 +1,6 @@
 export {
   addCoursePromptOnClick,
-  cancelAddCoursePromptOnClick,
-  buildNewTab,
+  cancelAddCourse,
   buildLocallyStoredCourses,
   toggleAddCourseForm,
   toggleAddCoursePrompt,
@@ -28,7 +27,7 @@ const addCoursePromptOnClick = () => {
 };
 
 //Cancel adding a course
-const cancelAddCoursePromptOnClick = () => {
+const cancelAddCourse = () => {
   const cancelAddCourseButton = document.getElementById(
     "cancelAddCourseButton"
   );
@@ -60,38 +59,4 @@ const buildLocallyStoredCourses = (courseIndex) => {
   courseList.appendChild(courseElement);
 
   return courseElement;
-};
-
-//Displays title, addTaskPrompt, and taskList div for course tabs
-const buildNewTab = (target) => {
-  const contentDiv = document.getElementById("content");
-
-  const courseTitleDiv = document.createElement("div");
-  courseTitleDiv.setAttribute("id", "courseTitleDiv");
-
-  //Title
-  const courseTitle = document.createElement("h");
-  courseTitle.setAttribute("id", "courseTitle");
-  courseTitle.innerHTML = target.innerHTML;
-  courseTitleDiv.append(courseTitle);
-
-  //DeleteCourseButton
-  const deleteCourseButton = document.createElement("button");
-  deleteCourseButton.setAttribute("id", "deleteCourseButton");
-  deleteCourseButton.innerHTML = "Delete";
-  courseTitleDiv.append(deleteCourseButton);
-
-  contentDiv.append(courseTitleDiv);
-
-  //Add Task Button
-  const addTaskPrompt = document.createElement("button");
-  addTaskPrompt.setAttribute("id", "addTaskPrompt");
-  addTaskPrompt.classList.add("active");
-  addTaskPrompt.innerHTML = "+ Add Task";
-  contentDiv.append(addTaskPrompt);
-
-  //Tasklist
-  const taskList = document.createElement("div");
-  taskList.setAttribute("id", "taskList");
-  contentDiv.append(taskList);
 };

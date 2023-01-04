@@ -4,7 +4,11 @@ import {
   toggleAddCoursePrompt,
   buildLocallyStoredCourses,
 } from "./DOM.js";
-import { courseArray } from "./index.js";
+import {
+  courseArray,
+  updateLocalStorageFromArray,
+  displayCourse,
+} from "./index.js";
 export { displayLocallyStoredCourses, addCourse };
 
 const displayLocallyStoredCourses = () => {
@@ -25,27 +29,9 @@ const displayLocallyStoredCourses = () => {
   }
 };
 
-//Displaying a new course. Course tab event listener is added here from course.js
-const displayCourse = (course) => {
-  const courseList = document.getElementById("courseList");
-  const courseElement = document.createElement("button");
-  courseElement.classList.add("course");
-  courseElement.innerHTML = `${course.getCourseName()}`;
-  courseList.appendChild(courseElement);
-
-  return courseElement;
-};
-
-const updateCoursesLocalStorage = () => {
-  courseArray.forEach((course, index) => {
-    localStorage.setItem(`course${index}Name`, `${course.getCourseName()}`);
-    localStorage.setItem(`course${index}Credit`, `${course.getCourseCredit()}`);
-  });
-};
-
 const doesCourseAlreadyExist = (courseName) => {
   for (let i = 0; i < courseArray.length; i++) {
-    if (courseArray[i].getCourseName() == courseName) {
+    if (localStorage.getItem(`course${i}Name`) == courseName) {
       return true;
     }
   }
@@ -79,22 +65,29 @@ const addCourse = () => {
       if (doesCourseAlreadyExist(courseName.value) == true) {
         courseName.value = "";
         courseName.setAttribute("placeholder", "*This course already exists");
-
-        console.log("he");
       } else {
         courseName.setAttribute("placeholder", "");
         courseCredit.setAttribute("placeholder", "");
 
         let course = buildCourseFromForm();
+
+        //Pushes course to array, iterates through array and updates localStorage
         courseArray.push(course);
-        let courseElement = displayCourse(course);
+        updateLocalStorageFromArray();
 
-        //adds the tab functionality to the newly build and displayed course.
-        //CourseElement (from displayCourse) is the nav element.
-        addCourseTabListener(courseElement);
+        //deletes everything in the courseList and builds it all again
+        document.getElementById("courseList").innerHTML = "";
+        for (
+          let courseIndex = 0;
+          courseIndex < courseArray.length;
+          courseIndex++
+        ) {
+          let courseElement = displayCourse(courseArray[courseIndex]);
 
-        //Iterates through courseArray and updates localstorage.
-        updateCoursesLocalStorage();
+          //adds the tab functionality to the newly build and displayed course.
+          //CourseElement (from displayCourse) is the nav element.
+          addCourseTabListener(courseElement);
+        }
 
         toggleAddCourseForm();
         toggleAddCoursePrompt();
