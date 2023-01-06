@@ -2,7 +2,7 @@
 
 Here is what the app currently looks like:
 
-<img src="ssrc/images/Screenshot 2023-01-06 012802.jpg" width="600"/>
+<img src="src/images/Screenshot 2023-01-06 012802.jpg" width="600"/>
 
 ## Features:
 
