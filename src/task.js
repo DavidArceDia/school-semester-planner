@@ -80,9 +80,24 @@ const addTaskListeners = (elements) => {
 
       console.log(courseIndex, taskIndex);
       //delete from localStorage
-
-      for (let j = 0; j < courseArray[courseIndex].taskArray.length; j++) {
-        if (courseArray[courseIndex].taskArray[j + 1] != undefined) {
+      localStorage.removeItem(`course${courseIndex}Task${taskIndex}Name`);
+      localStorage.removeItem(`course${courseIndex}Task${taskIndex}DueDate`);
+      localStorage.removeItem(`course${courseIndex}Task${taskIndex}Weight`);
+      localStorage.removeItem(`course${courseIndex}Task${taskIndex}Mark`);
+      localStorage.removeItem(`course${courseIndex}Task${taskIndex}Priority`);
+      localStorage.removeItem(`course${courseIndex}Task${taskIndex}Completion`);
+      for (
+        let j = taskIndex;
+        j < courseArray[courseIndex].taskArray.length;
+        j++
+      ) {
+        if (
+          localStorage.getItem(`course${courseIndex}Task${j + 1}Name`) !=
+          undefined
+        ) {
+          console.log(
+            localStorage.getItem(`course${courseIndex}Task${j + 1}Name`)
+          );
           console.log("hello");
           localStorage.setItem(
             `course${courseIndex}Task${j}Name`,
