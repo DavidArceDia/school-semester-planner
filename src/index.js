@@ -1,5 +1,6 @@
 import "./style.css";
 import homeButtonImage from "./homeButton.jpg";
+import faviconImage from "./images/icon.png";
 import { displayLocallyStoredCourses, addCourse } from "./courseAddition.js";
 import { cancelAddTask, addTask } from "./taskAddition.js";
 import { Task, addTaskListeners } from "./task";
