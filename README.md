@@ -1,31 +1,5 @@
-### Semester Properties
+# Semester Planner
 
-- Name
-- Weight
-- Average
+Here is what the app currently looks like:
 
-### Course Properties
-
-Recives:
-
-- Name
-- Weight
-
-Returns:
-
-- Average
-- Progress
-
-### Task Properties
-
-- Name
-- Due Date
-- Weight
-- Mark
-- Priority
-
-- Can be edited, crossed out, or deleted.
-
-Need to add form validation.
-Need to add D function to tasks
-Need to add Check function to tasks
+<img src="src/images/Screenshot 2023-01-06 012136.jpg" width="400"/>

@@ -23,6 +23,7 @@ const addDeleteCourseOnClick = () => {
       localStorage.removeItem(`course${courseIndex}Task${i}Weight`);
       localStorage.removeItem(`course${courseIndex}Task${i}Mark`);
       localStorage.removeItem(`course${courseIndex}Task${i}Priority`);
+      localStorage.removeItem(`course${courseIndex}Task${i}Completion`);
     }
     //shift localstorage
     for (let i = courseIndex; i < courseArray.length + 1; i++) {
@@ -58,6 +59,10 @@ const addDeleteCourseOnClick = () => {
             `course${i}Task${j}Priority`,
             localStorage.getItem(`course${i + 1}Task${j}Priority`)
           );
+          localStorage.setItem(
+            `course${i}Task${j}Completion`,
+            localStorage.getItem(`course${i + 1}Task${j}Completion`)
+          );
         }
       } else {
         //delete course from local storage
@@ -69,6 +74,7 @@ const addDeleteCourseOnClick = () => {
           localStorage.removeItem(`course${i}Task${j}Weight`);
           localStorage.removeItem(`course${i}Task${j}Mark`);
           localStorage.removeItem(`course${i}Task${j}Priority`);
+          localStorage.removeItem(`course${i}Task${j}Completion`);
         }
       }
     }

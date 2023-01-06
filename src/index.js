@@ -177,9 +177,14 @@ const displayTask = (task) => {
   taskMark.innerHTML = `${task.taskMark}%`;
   taskDiv.append(taskMark);
 
+  const taskDeleteButton = document.createElement("button");
+  taskDeleteButton.classList.add("taskDeleteButton");
+  taskDeleteButton.innerText = `X`;
+  taskDiv.append(taskDeleteButton);
+
   taskList.append(taskDiv);
 
-  return { taskCheckbox };
+  return { taskCheckbox, taskDeleteButton };
 };
 
 //

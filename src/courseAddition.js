@@ -28,7 +28,6 @@ const displayLocallyStoredCourses = () => {
     }
   }
 };
-
 const doesCourseAlreadyExist = (courseName) => {
   for (let i = 0; i < courseArray.length; i++) {
     if (localStorage.getItem(`course${i}Name`) == courseName) {
