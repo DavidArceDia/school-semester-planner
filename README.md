@@ -9,11 +9,12 @@ Here is what the app currently looks like:
 - Creating, reading and deleting courses
 - Creating, reading, checkmarking and deleting tasks
 - Forms for adding courses or tasks are hidden from view
+- Tasks contain the task priority, name, due date, weight and mark achived
 
 ## Features yet to be added:
 
 - Homepage: A list of the next 2 week's tasks organized by accending due date
-- Tasks: Able to be editted, specifically for imputing marks once tasks have been completed
-- Courses: Able to be editted
+- Tasks: Able to be edited, specifically for imputing marks once tasks have been completed
+- Courses: Able to be edited
 - Courses: Display a real-time student's course average based on tasks completed and their weights
 - Homepage: Display the semester average based on course averages and their weights
