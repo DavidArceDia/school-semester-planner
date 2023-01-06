@@ -9,6 +9,7 @@ Here is what the app currently looks like:
 - Creating, reading and deleting courses
 - Creating, reading, checkmarking and deleting tasks
 - Forms for adding courses or tasks are hidden from view
+- Tasks contain the task priority, name, due date, weight and mark achived
 
 ## Features yet to be added:
 
