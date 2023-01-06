@@ -3,7 +3,8 @@ import homeButtonImage from "./homeButton.jpg";
 
 import { displayLocallyStoredCourses, addCourse } from "./courseAddition.js";
 import { cancelAddTask, addTask } from "./taskAddition.js";
-import { Task } from "./task";
+import { Task, addTaskListeners } from "./task";
+
 import { Course, addCourseTabListener } from "./course.js";
 import { addCoursePromptOnClick, cancelAddCourse } from "./DOM.js";
 export {
@@ -16,6 +17,7 @@ export {
 
 const homeButton = new Image();
 homeButton.src = homeButtonImage;
+homeButton.setAttribute("id", "homeButtonButton");
 document.getElementById("homeButton").appendChild(homeButton);
 
 const courseArray = [];
@@ -25,7 +27,6 @@ const updateCourseArrayFromLocalStorage = () => {
   for (let courseIndex = 0; courseIndex < 50; courseIndex++) {
     //While a course still exists at this courseIndex,
     while (localStorage.getItem(`course${courseIndex}Name`) != null) {
-      console.log(courseIndex);
       //Build and add locally stored courses to the array
       let courseName = localStorage.getItem(`course${courseIndex}Name`);
       let courseCredit = localStorage.getItem(`course${courseIndex}Credit`);
@@ -39,7 +40,6 @@ const updateCourseArrayFromLocalStorage = () => {
           localStorage.getItem(`course${courseIndex}Task${taskIndex}Name`) !=
           null
         ) {
-          console.log(courseIndex, taskIndex);
           //Build and add locally stored tasks to the appropriate course in the array
           let name = localStorage.getItem(
             `course${courseIndex}Task${taskIndex}Name`
@@ -105,19 +105,6 @@ const updateLocalStorageFromArray = () => {
     });
   });
 };
-
-// const displayLocallyStoredCoursesInNav = (courseIndex) => {
-//   const courseList = document.getElementById("courseList");
-
-//   const courseElement = document.createElement("button");
-//   courseElement.classList.add("course");
-//   courseElement.innerHTML = `${localStorage.getItem(
-//     `course${courseIndex}Name`
-//   )}`;
-//   courseList.appendChild(courseElement);
-
-//   return courseElement;
-// };
 
 const displayCourse = (course) => {
   const courseList = document.getElementById("courseList");
@@ -187,6 +174,52 @@ const displayTask = (task) => {
   return { taskCheckbox, taskDeleteButton };
 };
 
+const displayHomePage = () => {
+  const contentDiv = document.getElementById("content");
+  contentDiv.innerHTML = "";
+
+  const courseTitleDiv = document.createElement("div");
+  courseTitleDiv.setAttribute("id", "courseTitleDiv");
+
+  //Title
+  const title = document.createElement("h");
+  title.setAttribute("id", "semesterTitle");
+  title.innerHTML = "3 Week Overview";
+  courseTitleDiv.append(title);
+
+  contentDiv.prepend(courseTitleDiv);
+
+  //Tasklist
+  const taskList = document.createElement("div");
+  taskList.setAttribute("id", "taskList");
+  contentDiv.append(taskList);
+
+  //today's date + 3 weeks (number)
+  let maxDate = new Date().getTime() + 1814400000;
+  for (let i = 0; i < courseArray.length; i++) {
+    for (let j = 0; j < courseArray[i].taskArray.length; j++) {
+      let taskDate = new Date(
+        courseArray[i].taskArray[j].taskDueDate
+      ).getTime();
+      console.log(maxDate, taskDate);
+      if (taskDate < maxDate) {
+        displayTask(courseArray[i].taskArray[j]);
+        let deleteButtons = Array.from(
+          document.getElementsByClassName("taskDeleteButton")
+        );
+        deleteButtons.forEach((item) => {
+          item.remove();
+        });
+        let checkBoxes = Array.from(
+          document.getElementsByClassName("taskCheckbox")
+        );
+        checkBoxes.forEach((item) => {
+          item.classList.add("taskCheckbox-homepage");
+        });
+      }
+    }
+  }
+};
 //
 
 //If there are any elements in localStorage, they get copied onto the array.
@@ -200,6 +233,9 @@ for (let courseIndex = 0; courseIndex < courseArray.length; courseIndex++) {
   let courseElement = displayCourse(courseArray[courseIndex]);
   addCourseTabListener(courseElement);
 }
+
+displayHomePage();
+homeButton.addEventListener("click", displayHomePage);
 
 /*Locally stored courses are now displayed on the nav. addCourseTabListener listens for
 a click. It deletes everything in the content div, then calls changeTabs, which will:
@@ -232,3 +268,29 @@ addTask();
 cancelAddTask();
 
 console.log(courseArray);
+
+// console.log(courseArray[0].taskArray[0].taskDueDate);
+// // console.log(courseArray[0].taskArray[1].taskDueDate);
+// // console.log(
+// //   courseArray[0].taskArray[0].taskDueDate >
+// //     courseArray[0].taskArray[0].taskDueDate
+// // );
+// let date = new Date();
+// console.log(date);
+// console.log(date.getTime());
+
+// console.log(date.getTime() + 1814400000);
+
+// date = new Date(1814400000);
+// console.log(date);
+
+// console.log(courseArray[0].taskArray[0].taskDueDate > date);
+
+// let date = new Date(courseArray[0].taskArray[0].taskDueDate);
+// console.log(date);
+// console.log(date.getTime());
+
+// let maxDate = new Date().getTime() + 1814400000;
+// // console.log(Date(maxDate + 1814400000));
+// console.log(maxDate);
+// console.log(new Date(1674849807730));

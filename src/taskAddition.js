@@ -55,8 +55,6 @@ const doesTaskAlreadyExist = (taskName, event) => {
       .parentElement.firstElementChild.nextElementSibling.firstElementChild
       .firstElementChild.innerText;
 
-  console.log(courseName);
-
   for (let i = 0; i < courseArray.length; i++) {
     if (localStorage.getItem(`course${i}Name`) == courseName) {
       for (let j = 0; j < courseArray[i].taskArray.length; j++) {

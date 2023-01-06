@@ -38,6 +38,8 @@ const addTaskListeners = (elements) => {
       //find the right course and task#, then change its complation value
       for (let i = 0; i < courseArray.length; i++) {
         if (localStorage.getItem(`course${i}Name`) == courseName) {
+          console.log("hello");
+
           for (let j = 0; j < courseArray[i].taskArray.length; j++) {
             if (localStorage.getItem(`course${i}Task${j}Name`) == taskName) {
               if (
@@ -78,7 +80,6 @@ const addTaskListeners = (elements) => {
         }
       }
 
-      console.log(courseIndex, taskIndex);
       //delete from localStorage
       localStorage.removeItem(`course${courseIndex}Task${taskIndex}Name`);
       localStorage.removeItem(`course${courseIndex}Task${taskIndex}DueDate`);
@@ -95,10 +96,6 @@ const addTaskListeners = (elements) => {
           localStorage.getItem(`course${courseIndex}Task${j + 1}Name`) !=
           undefined
         ) {
-          console.log(
-            localStorage.getItem(`course${courseIndex}Task${j + 1}Name`)
-          );
-          console.log("hello");
           localStorage.setItem(
             `course${courseIndex}Task${j}Name`,
             localStorage.getItem(`course${courseIndex}Task${j + 1}Name`)

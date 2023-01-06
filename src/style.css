@@ -189,6 +189,13 @@ body {
   align-items: flex-start;
 }
 
+#semesterTitle {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: black;
+  margin: 0.25rem 0rem 1rem;
+}
+
 #courseTitleDiv {
   width: 100%;
   display: flex;
@@ -203,7 +210,7 @@ body {
 }
 
 #deleteCourseButton {
-  margin: 1rem;
+  margin: 0.25rem 1rem;
   padding: 0.25rem 1rem;
   font-size: 1.2rem;
 
@@ -451,6 +458,20 @@ body {
   background-color: #ff8787;
   border: 0.35rem solid #ff8787;
   border-radius: 50%;
+}
+
+.taskCheckbox.taskCheckbox-homepage.lowPriority.checked:hover {
+  background-color: #23967f;
+}
+.taskCheckbox.taskCheckbox-homepage.highPriority.checked:hover {
+  background-color: #e6a715;
+}
+.taskCheckbox.taskCheckbox-homepage.highPriority.checked:hover {
+  background-color: #ff8787;
+}
+.taskCheckbox.taskCheckbox-homepage:hover {
+  background-color: white;
+  cursor: default;
 }
 
 .taskName {
