@@ -156,12 +156,20 @@ const displayTask = (task) => {
 
   const taskWeight = document.createElement("p");
   taskWeight.classList.add("taskWeight");
-  taskWeight.innerHTML = `${task.taskWeight}%`;
+  if (task.taskWeight == "") {
+    taskWeight.innerHTML = "";
+  } else {
+    taskWeight.innerHTML = `${task.taskWeight}%`;
+  }
   taskDiv.append(taskWeight);
 
   const taskMark = document.createElement("p");
   taskMark.classList.add("taskMark");
-  taskMark.innerHTML = `${task.taskMark}%`;
+  if (task.taskMark == "") {
+    taskMark.innerHTML = ``;
+  } else {
+    taskMark.innerHTML = `${task.taskMark}%`;
+  }
   taskDiv.append(taskMark);
 
   const taskDeleteButton = document.createElement("button");
