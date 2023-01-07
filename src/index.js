@@ -219,6 +219,14 @@ const displayHomePage = () => {
       }
     }
   }
+
+  if (taskList.childNodes.length === 0) {
+    const nothingDue = document.createElement("p");
+    nothingDue.innerHTML = "Nothing due anytime soon...";
+
+    contentDiv.append(nothingDue);
+  }
+  console.log(taskList.childNodes.length);
 };
 //
 

@@ -8,6 +8,11 @@ body {
   min-height: 100vh;
 }
 
+p {
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /* NAV */
 
 #nav {
